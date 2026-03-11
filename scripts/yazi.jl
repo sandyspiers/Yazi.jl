@@ -32,7 +32,11 @@ const PLATFORMS = [
 ]
 
 println("Creating GitHub release $YAZI_VERSION on $THIS_REPO ...")
-run(`gh release create $YAZI_VERSION --repo $THIS_REPO --title "yazi $YAZI_VERSION" --notes "Repacked yazi $YAZI_VERSION binaries for Julia artifact system."`)
+try
+    run(`gh release create $YAZI_VERSION --repo $THIS_REPO --title "yazi $YAZI_VERSION" --notes "Repacked yazi $YAZI_VERSION binaries for Julia artifact system."`)
+catch
+    println("  Release already exists, continuing...")
+end
 
 mktempdir() do tmpdir
     for (stem, platform) in PLATFORMS
@@ -67,7 +71,7 @@ mktempdir() do tmpdir
         # Upload tarball to this repo's release
         hosted_url = "$HOSTED_URL/$tarball_name"
         println("  Uploading to $hosted_url ...")
-        run(`gh release upload $YAZI_VERSION $tarball_path --repo $THIS_REPO`)
+        run(`gh release upload $YAZI_VERSION $tarball_path --repo $THIS_REPO --clobber`)
 
         bind_artifact!(
             ARTIFACT_TOML,
