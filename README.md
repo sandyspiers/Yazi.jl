@@ -39,6 +39,6 @@ include.(yazi_files())
 
 ## Updating yazi
 
-1. Set `yazi_version` in `Project.toml` to the new upstream version
-2. Run `julia scripts/build_artifacts.jl` (requires `gh` CLI, authenticated with write access to this repo)
-3. Commit `Artifacts.toml` and `Project.toml`
+Updating is handeled by github runners,
+so all you need to do is update the yazi version in `Project.toml`,
+and then wait for github to create the release and update the `Artifacts.toml`.
