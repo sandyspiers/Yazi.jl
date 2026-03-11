@@ -11,7 +11,7 @@ using Yazi
 
     @testset "version matches" begin
         project_toml = TOML.parsefile(joinpath(@__DIR__, "..", "Project.toml"))
-        yazi_version = project_toml["yazi_version"]
+        yazi_version = project_toml["yazi"]["version"]
         out = readchomp(`$(yazi_bin()) --version`)
         @test startswith(lowercase(out), "yazi")
         @test contains(out, yazi_version)

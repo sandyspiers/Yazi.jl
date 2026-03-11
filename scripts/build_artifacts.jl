@@ -15,7 +15,7 @@ using Base.BinaryPlatforms
 using TOML
 
 const _project = TOML.parsefile(joinpath(@__DIR__, "..", "Project.toml"))
-const YAZI_VERSION = "v" * _project["yazi_version"]
+const YAZI_VERSION = "v" * _project["yazi"]["version"]
 const UPSTREAM_URL = "https://github.com/sxyazi/yazi/releases/download/$YAZI_VERSION"
 const ARTIFACT_TOML = joinpath(@__DIR__, "..", "Artifacts.toml")
 
