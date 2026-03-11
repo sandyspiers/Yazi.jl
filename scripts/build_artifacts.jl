@@ -5,7 +5,7 @@
 # writes an Artifacts.toml entry pointing at that tarball.
 #
 # Requires: gh CLI authenticated with write access to this repo.
-# Run with: julia scripts/yazi.jl
+# Run with: julia scripts/build_artifacts.jl
 
 using Downloads: download
 using SHA
