@@ -36,3 +36,9 @@ dirs = yazi_dirs(containing=true)
 # that you can choose using Yazi
 include.(yazi_files())
 ```
+
+## Updating yazi
+
+1. Set `yazi_version` in `Project.toml` to the new upstream version
+2. Run `julia scripts/yazi.jl` (requires `gh` CLI, authenticated with write access to this repo)
+3. Commit `Artifacts.toml` and `Project.toml`

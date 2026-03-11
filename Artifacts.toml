@@ -5,8 +5,8 @@ libc = "glibc"
 os = "linux"
 
     [[yazi.download]]
-    sha256 = "a136269b2d5fbb5fb43f3fac3391446e8fbc72aba1c4bb4fae6e6d1556420750"
-    url = "https://github.com/sxyazi/yazi/releases/download/v26.1.22/yazi-x86_64-unknown-linux-gnu.zip"
+    sha256 = "a4b8b5c04580fdef2bec5644cb58a36bda3c063daffc79bce0a258fa97f9dbcd"
+    url = "https://github.com/sandyspiers/Yazi.jl/releases/download/v26.1.22/yazi-x86_64-unknown-linux-gnu.tar.gz"
 [[yazi]]
 arch = "aarch64"
 git-tree-sha1 = "15db89cc8e040dc6ff076aba874af818a2c45061"
@@ -14,29 +14,29 @@ libc = "glibc"
 os = "linux"
 
     [[yazi.download]]
-    sha256 = "f5a9d7062ae30b75c1e0481d3132aa54c14bacf76efb1b39b54b6d5d08b7c537"
-    url = "https://github.com/sxyazi/yazi/releases/download/v26.1.22/yazi-aarch64-unknown-linux-gnu.zip"
+    sha256 = "cb2bab6ae6b1d5ce2611ef0ba2696d5d48c89a7061dda2dec0b275a148705a2c"
+    url = "https://github.com/sandyspiers/Yazi.jl/releases/download/v26.1.22/yazi-aarch64-unknown-linux-gnu.tar.gz"
 [[yazi]]
 arch = "x86_64"
 git-tree-sha1 = "f6f9e23c6b2f8ebc65d198f4e2b95e28dde59246"
 os = "macos"
 
     [[yazi.download]]
-    sha256 = "1e097c015a968aba29bbc11bffdb99a7aedaf92c78df09d00613283dac0f148c"
-    url = "https://github.com/sxyazi/yazi/releases/download/v26.1.22/yazi-x86_64-apple-darwin.zip"
+    sha256 = "a4e24a48e82b01cac9cd06155e2362b1a2527e573e1003f878622c0a70b12041"
+    url = "https://github.com/sandyspiers/Yazi.jl/releases/download/v26.1.22/yazi-x86_64-apple-darwin.tar.gz"
 [[yazi]]
 arch = "aarch64"
 git-tree-sha1 = "c049b4d37d74c9c7f61077985e6b87cc3ea34501"
 os = "macos"
 
     [[yazi.download]]
-    sha256 = "8355ad582dd9f4ef1f88a228080f2b6116bbb483dd48d1bde555d475f4d2afe4"
-    url = "https://github.com/sxyazi/yazi/releases/download/v26.1.22/yazi-aarch64-apple-darwin.zip"
+    sha256 = "d35d6dfa8800b089728898da1fa1621b9e602f581349f135f97a161a6252047c"
+    url = "https://github.com/sandyspiers/Yazi.jl/releases/download/v26.1.22/yazi-aarch64-apple-darwin.tar.gz"
 [[yazi]]
 arch = "x86_64"
 git-tree-sha1 = "e04a542ad6296b7b86cbf6dd3f7e1ac61084376c"
 os = "windows"
 
     [[yazi.download]]
-    sha256 = "7d6c8e3f596f99dd8f20fc7b806c9195c4746c2b7100d0e90a7ff80c259c899a"
-    url = "https://github.com/sxyazi/yazi/releases/download/v26.1.22/yazi-x86_64-pc-windows-msvc.zip"
+    sha256 = "6365a9ff608875720a479760ffdd3a4effd40776dd3ec9c24e17935c830838bf"
+    url = "https://github.com/sandyspiers/Yazi.jl/releases/download/v26.1.22/yazi-x86_64-pc-windows-msvc.tar.gz"
