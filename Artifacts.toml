@@ -5,7 +5,7 @@ libc = "glibc"
 os = "linux"
 
     [[yazi.download]]
-    sha256 = "5487f1e79ad0f01fd0690a628489e3c5aa0da058167392430a185991c5af17b5"
+    sha256 = "0d7dba8ed6852f37e5553156d4afc4485f259938b942dea3018ed99246a5f453"
     url = "https://github.com/sandyspiers/Yazi.jl/releases/download/v26.1.22/yazi-x86_64-unknown-linux-gnu.tar.gz"
 [[yazi]]
 arch = "aarch64"
@@ -14,7 +14,7 @@ libc = "glibc"
 os = "linux"
 
     [[yazi.download]]
-    sha256 = "43357f051c433389090016cabdf169f209b2bad29863aa4a3a98aa6c07531f7b"
+    sha256 = "b1c570a485953052e008f0762f945f6a6e7f0cbf585e9094de5687230fc47a59"
     url = "https://github.com/sandyspiers/Yazi.jl/releases/download/v26.1.22/yazi-aarch64-unknown-linux-gnu.tar.gz"
 [[yazi]]
 arch = "x86_64"
@@ -22,7 +22,7 @@ git-tree-sha1 = "a2a1c9ab174406fb9e6bf8673086c4d036cde61b"
 os = "macos"
 
     [[yazi.download]]
-    sha256 = "48d9ce5920403b5c2b10261bf3b94c46d37891e1f2f644223b04b7fb386a8646"
+    sha256 = "f8f327549319ff127f139a8118789a53857d517759966a6548d571637041ab6e"
     url = "https://github.com/sandyspiers/Yazi.jl/releases/download/v26.1.22/yazi-x86_64-apple-darwin.tar.gz"
 [[yazi]]
 arch = "aarch64"
@@ -30,7 +30,7 @@ git-tree-sha1 = "3251b0224b31772cab1333326b12e302301c5f8f"
 os = "macos"
 
     [[yazi.download]]
-    sha256 = "4919f9afadc4ff1206140f1183fb306153a091279688a3d1c92ba8cdf6cfb844"
+    sha256 = "2b35ddc212376b8f01b79912ab72f05a8ee22d38e14f9510ce1c745277451a9c"
     url = "https://github.com/sandyspiers/Yazi.jl/releases/download/v26.1.22/yazi-aarch64-apple-darwin.tar.gz"
 [[yazi]]
 arch = "x86_64"
@@ -38,5 +38,5 @@ git-tree-sha1 = "cc789fdceff1072759dd30a9efdd6777e77897ca"
 os = "windows"
 
     [[yazi.download]]
-    sha256 = "1063a2252a915f6d98f380ad17fc1b2b68472e0ffc2c7aa650c698cd547b884f"
+    sha256 = "e432d274338187f613603f044c8e2800d0261e8536508ab22cd94f0f40e66d38"
     url = "https://github.com/sandyspiers/Yazi.jl/releases/download/v26.1.22/yazi-x86_64-pc-windows-msvc.tar.gz"
