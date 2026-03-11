@@ -54,6 +54,9 @@ mktempdir() do tmpdir
         run(`unzip -q $zip_path -d $extract_dir`)
         binary_dir = joinpath(extract_dir, stem)
 
+        # Ensure execute bit is set — unzip on Linux strips it from Windows binaries
+        run(`chmod -R 755 $binary_dir`)
+
         # Repack the binary directory contents (not the directory itself)
         # so the artifact root contains the binaries directly
         tarball_name = "$stem.tar.gz"
