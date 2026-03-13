@@ -1,0 +1,21 @@
+name: Build Artifacts
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - Project.toml
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+      - uses: julia-actions/cache@v2
+      - name: Build artifacts
+        run: julia --project=scripts scripts/build_artifacts.jl
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

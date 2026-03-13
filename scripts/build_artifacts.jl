@@ -1,27 +1,19 @@
-# Generates Artifacts.toml for Yazi.jl
-#
-# For each platform, downloads the upstream yazi zip, repacks the binary
-# directory as a .tar.gz, uploads it to this repo's GitHub release, then
-# writes an Artifacts.toml entry pointing at that tarball.
-#
-# Requires: gh CLI authenticated with write access to this repo.
-# Run with: julia scripts/build_artifacts.jl
-
-using Downloads: download
-using SHA
-using Pkg
-using Pkg.Artifacts: bind_artifact!
+# Downloads artifacts and publishes them as a github release
+using ArtifactUtils
 using Base.BinaryPlatforms
+using Pkg
 using TOML
 
-const _project = TOML.parsefile(joinpath(@__DIR__, "..", "Project.toml"))
-const YAZI_VERSION = "v" * _project["yazi"]["version"]
-const UPSTREAM_URL = "https://github.com/sxyazi/yazi/releases/download/$YAZI_VERSION"
-const ARTIFACT_TOML = joinpath(@__DIR__, "..", "Artifacts.toml")
+Pkg.instantiate()
 
-# This repo — where repacked tarballs are uploaded
-const THIS_REPO = "sandyspiers/Yazi.jl"
-const HOSTED_URL = "https://github.com/$THIS_REPO/releases/download/$YAZI_VERSION"
+const PROJECT_DIR = joinpath(@__DIR__, "..")
+const PROJECT_TOML = joinpath(PROJECT_DIR, "Project.toml")
+const ARTIFACTS_TOML = joinpath(PROJECT_DIR, "Artifacts.toml")
+const PROJECT_DICT = TOML.parsefile(PROJECT_TOML)
+
+const YAZI = "yazi"
+const YAZI_VERSION = PROJECT_DICT["yazi"]["version"]
+const UPSTREAM_URL = "https://github.com/sxyazi/yazi/releases/download/v$YAZI_VERSION"
 
 const PLATFORMS = [
     ("yazi-x86_64-unknown-linux-gnu",  Platform("x86_64",  "linux")),
@@ -31,62 +23,30 @@ const PLATFORMS = [
     ("yazi-x86_64-pc-windows-msvc",    Platform("x86_64",  "windows")),
 ]
 
-println("Creating GitHub release $YAZI_VERSION on $THIS_REPO ...")
-try
-    run(`gh release create $YAZI_VERSION --repo $THIS_REPO --title "yazi $YAZI_VERSION" --notes "Repacked yazi $YAZI_VERSION binaries for Julia artifact system."`)
-catch
-    println("  Release already exists, continuing...")
-end
-
 mktempdir() do tmpdir
     for (stem, platform) in PLATFORMS
         println("\n[$stem]")
+        archive_name = "$stem.zip"
+        archive_path = joinpath(tmpdir, archive_name)
 
-        # Download upstream zip
-        zip_name = "$stem.zip"
-        zip_path = joinpath(tmpdir, zip_name)
-        println("  Downloading $zip_name ...")
-        download("$UPSTREAM_URL/$zip_name", zip_path)
+        println("  Downloading $archive_name ...")
+        download("$UPSTREAM_URL/$archive_name", archive_path)
 
-        # Extract; zip contains a single subdirectory named after the stem
-        extract_dir = joinpath(tmpdir, stem * "_extract")
+        println("  Extracting ...")
+        extract_dir = joinpath(tmpdir, stem)
         mkpath(extract_dir)
-        run(`unzip -q $zip_path -d $extract_dir`)
-        binary_dir = joinpath(extract_dir, stem)
+        run(`unzip -q $archive_path -d $extract_dir`)
 
         # Ensure execute bit is set — unzip on Linux strips it from Windows binaries
+        println("  Make executable..")
+        binary_dir = joinpath(extract_dir, stem)
         run(`chmod -R 755 $binary_dir`)
 
-        # Repack the binary directory contents (not the directory itself)
-        # so the artifact root contains the binaries directly
-        tarball_name = "$stem.tar.gz"
-        tarball_path = joinpath(tmpdir, tarball_name)
-        run(`tar -czf $tarball_path -C $binary_dir .`)
+        println("  Publishing ...")
+        artifact_id = artifact_from_directory(binary_dir)
+        release = upload_to_release(artifact_id; tag="v$YAZI_VERSION")
 
-        # Compute hashes of the repacked tarball
-        file_sha256 = open(io -> bytes2hex(sha256(io)), tarball_path)
-        tree_bytes  = Pkg.GitTools.tree_hash(SHA.SHA1_CTX, binary_dir)
-        tree_sha1   = Pkg.Types.SHA1(tree_bytes)
-
-        println("  sha256:        $file_sha256")
-        println("  git-tree-sha1: $(bytes2hex(tree_bytes))")
-
-        # Upload tarball to this repo's release
-        hosted_url = "$HOSTED_URL/$tarball_name"
-        println("  Uploading to $hosted_url ...")
-        run(`gh release upload $YAZI_VERSION $tarball_path --repo $THIS_REPO --clobber`)
-
-        bind_artifact!(
-            ARTIFACT_TOML,
-            "yazi",
-            tree_sha1;
-            platform      = platform,
-            download_info = [(hosted_url, file_sha256)],
-            lazy          = false,
-            force         = true,
-        )
-        println("  Bound for $(triplet(platform))")
+        println("  Add artifact ...")
+        add_artifact!(ARTIFACTS_TOML, YAZI, release; platform=platform, force=true)
     end
 end
-
-println("\nArtifacts.toml written to $ARTIFACT_TOML")
